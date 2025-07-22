@@ -1,0 +1,3 @@
+# MakefileLaTeX
+
+MakefileLaTeX是一个适用于LaTeX项目的Makefile。
