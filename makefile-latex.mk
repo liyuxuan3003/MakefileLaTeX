@@ -77,9 +77,9 @@ FIGS_PYT_PDF=$(addprefix ${BUILD_DIR}/,$(FIGS_PYT:.py=.pdf))
 # Figure output pdf
 FIGS_PDF=${FIGS_TEX_PDF} ${FIGS_OCT_PDF} ${FIGS_WLS_PDF} ${FIGS_PYT_PDF}
 # Figure output svg
-FIGS_SVG=$(FIGS_PDF:.pdf=:.svg)
+FIGS_SVG=$(FIGS_PDF:.pdf=.svg)
 # Figure output eps
-FIGS_EPS=$(FIGS_PDF:.pdf=:.eps)
+FIGS_EPS=$(FIGS_PDF:.pdf=.eps)
 
 # --------------------------------
 # Notification at the end of the task
@@ -90,6 +90,9 @@ endef
 # --------------------------------
 # Declare phony tasks
 .PHONY: default run fig-pdf fig-svg fig-eps clean
+
+# Declare not-parallel tasks
+.NOTPARALLEL: ${FIGS_OCT_PDF} ${FIGS_WLS_PDF} ${FIGS_SVG} ${FIGS_EPS}
 
 # Make LaTeX output
 default: ${BUILD_DIR} ${OUTPUT}
