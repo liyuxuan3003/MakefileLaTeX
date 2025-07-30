@@ -89,10 +89,10 @@ endef
 
 # --------------------------------
 # Declare phony tasks
-.PHONY: default run fig-pdf fig-svg fig-eps clean
+.PHONY: default run svg eps clean figs-tex-pdf figs-oct-pdf figs-wls-pdf figs-pyt-pdf figs-pdf
 
-# Declare not-parallel tasks
-.NOTPARALLEL: ${FIGS_OCT_PDF} ${FIGS_WLS_PDF} ${FIGS_SVG} ${FIGS_EPS}
+# Declare not-parallel tasks (make version >= 4.4)
+.NOTPARALLEL: figs-oct-pdf figs-wls-pdf svg eps
 
 # Make LaTeX output
 default: ${BUILD_DIR} ${OUTPUT}
@@ -103,22 +103,33 @@ run: default
 	start ${OUTPUT}
 	${NOTIFY_DONE}
 
-# Make all the figures
-fig-pdf: ${BUILD_DIR} ${FIGS_PDF}
+# Convert all figures to svg
+svg: ${FIGS_SVG}
 	${NOTIFY_DONE}
 
-# Convert all the figures to svg
-fig-svg: ${BUILD_DIR} ${FIGS_SVG}
-	${NOTIFY_DONE}
-
-# Convert all the figures to eps
-fig-eps: ${BUILD_DIR} ${FIGS_EPS}
+# Convert all figures to eps
+eps: ${FIGS_EPS}
 	${NOTIFY_DONE}
 
 # Clean build directory
 clean:
 	rm -r -v -I ${BUILD_DIR}
 	${NOTIFY_DONE}
+
+# Phony task for LaTeX figures
+figs-tex-pdf: ${FIGS_TEX_PDF}
+
+# Phony task for Octave figures
+figs-oct-pdf: ${FIGS_OCT_PDF}
+
+# Phony task for Mathematica figures
+figs-wls-pdf: ${FIGS_WLS_PDF}
+
+# Phony task for Python figures
+figs-pyt-pdf: ${FIGS_PYT_PDF}
+
+# Build all figures
+figs-pdf: ${FIGS_TEX_PDF} ${FIGS_OCT_PDF} ${FIGS_WLS_PDF} ${FIGS_PYT_PDF}
 
 # --------------------------------
 # Create build directory
@@ -127,7 +138,7 @@ ${BUILD_DIR}:
 	${NOTIFY_DONE}
 
 # Compile LaTeX main
-${OUTPUT}: ${TEXS} ${FIGS_PDF} ${DEPS_MAIN_TEX}
+${OUTPUT}: ${TEXS} figs-pdf ${DEPS_MAIN_TEX} 
 	${LATEX} ${LATEX_FLAGS} ${MAIN_TEX}
 	touch $@
 	${NOTIFY_DONE}
