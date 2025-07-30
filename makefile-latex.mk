@@ -129,7 +129,7 @@ figs-wls-pdf: ${FIGS_WLS_PDF}
 figs-pyt-pdf: ${FIGS_PYT_PDF}
 
 # Build all figures
-figs-pdf: ${FIGS_TEX_PDF} ${FIGS_OCT_PDF} ${FIGS_WLS_PDF} ${FIGS_PYT_PDF}
+figs-pdf: figs-tex-pdf figs-oct-pdf figs-wls-pdf figs-pyt-pdf
 
 # --------------------------------
 # Create build directory
