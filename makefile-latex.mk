@@ -1,10 +1,10 @@
 ######## Makefile for LaTeX ########
 
 # --------------------------------
-# Project Name
+# Project name
 PROJECT?=Notebook
 
-# Build Directory
+# Build directory
 # @@@@ WARNING @@@@ 
 # Excute "make clean" will simply "rm -r ${BUILD_DIR}".
 # Ensure ${BUILD_DIR} is a clean directory for build without anything important.
