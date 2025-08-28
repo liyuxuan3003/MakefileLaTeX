@@ -85,6 +85,7 @@ FIGS_EPS?=$(FIGS_PDF:.pdf=.eps)
 # Notification at the end of the task
 define NOTIFY_DONE
 @echo "|========> Makefile [$@]: Done"
+@echo ""
 endef
 
 # --------------------------------
