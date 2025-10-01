@@ -49,21 +49,16 @@ FIGS_WLS?=$(wildcard *.fig.wls)
 # Figure source files for Python
 FIGS_PYT?=$(wildcard *.fig.py)
 
-# LaTeX package Minimus
-STYS_MINIMUS?=$(wildcard minimus/*.sty)
-# LaTeX documentclass NotebookNeon
-CLSS_NOTEBOOK_NEON?=$(wildcard notebook-neon/*.cls)
-# LaTeX documentclass ArticleArgon
-CLSS_ARTICLE_ARGON?=$(wildcard article-argon/*.cls)
-# LaTeX documentclass BeamerBismuth
-CLSS_BEAMER_BISMUTH?=$(wildcard beamer-bismuth/*.cls)
-# LaTeX documentclass StandaloneSilicon
-CLSS_STANDALONE_SILICON?=$(wildcard standalone-silicon/*.cls)
-
 # LaTeX main dependence
 DEPS_MAIN_TEX?=
 # LaTeX figures dependence
 DEPS_FIGS_TEX?=
+# Octave dependence
+DEPS_FIGS_OCT?=
+# Mathematica dependence
+DEPS_FIGS_WLS?=
+# Python dependence
+DEPS_FIGS_PYT?=
 
 # --------------------------------
 # LaTeX output
@@ -153,17 +148,17 @@ ${BUILD_DIR}/%.fig.pdf: %.fig.tex ${DEPS_FIGS_TEX}
 	${NOTIFY_DONE}
 
 # Compile Octave figure
-${BUILD_DIR}/%.fig.pdf: %.fig.m
+${BUILD_DIR}/%.fig.pdf: %.fig.m ${DEPS_FIGS_OCT}
 	${OCTAVE} ${OCTAVE_FLAGS} $<
 	${NOTIFY_DONE}
 
 # Compile Mathematica figure
-${BUILD_DIR}/%.fig.pdf: %.fig.wls
+${BUILD_DIR}/%.fig.pdf: %.fig.wls ${DEPS_FIGS_WLS}
 	${WOLFRAM} ${WOLFRAM_FLAGS} $<
 	${NOTIFY_DONE}
 
 # Compile Python figure
-${BUILD_DIR}/%.fig.pdf: %.fig.py
+${BUILD_DIR}/%.fig.pdf: %.fig.py ${DEPS_FIGS_PYT}
 	${PYTHON} ${PYTHON_FLAGS} $<
 	${NOTIFY_DONE}
 
