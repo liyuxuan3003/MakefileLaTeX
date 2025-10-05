@@ -10,5 +10,7 @@ CLSS_ARTICLE_ARGON?=$(wildcard article-argon/*.cls)
 CLSS_BEAMER_BISMUTH?=$(wildcard beamer-bismuth/*.cls)
 # LaTeX documentclass StandaloneSilicon
 CLSS_STANDALONE_SILICON?=$(wildcard standalone-silicon/*.cls)
+# LaTeX documentclass SI200MiniReview
+CLSS_SI200_MINI_REVIEW?=$(wildcard si200-mini-review/*.cls)
 # Python package PyJool
 PYTS_PYJOOL?=$(wildcard pyjool/*.py)
