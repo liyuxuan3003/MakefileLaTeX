@@ -13,6 +13,6 @@ CLSS_STANDALONE_SILICON?=$(wildcard standalone-silicon/*.cls)
 # LaTeX documentclass SI200MiniReview
 CLSS_SI200_MINI_REVIEW?=$(wildcard si200-mini-review/*.cls)
 # LaTeX documentclass IEEEConference
-CLSS_SI200_MINI_REVIEW?=$(wildcard ieee-conference/*.cls)
+CLSS_IEEE_CONFERENCE?=$(wildcard ieee-conference/*.cls)
 # Python package PyJool
 PYTS_PYJOOL?=$(wildcard pyjool/*.py)
