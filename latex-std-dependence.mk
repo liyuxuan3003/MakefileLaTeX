@@ -12,5 +12,7 @@ CLSS_BEAMER_BISMUTH?=$(wildcard beamer-bismuth/*.cls)
 CLSS_STANDALONE_SILICON?=$(wildcard standalone-silicon/*.cls)
 # LaTeX documentclass SI200MiniReview
 CLSS_SI200_MINI_REVIEW?=$(wildcard si200-mini-review/*.cls)
+# LaTeX documentclass IEEEConference
+CLSS_IEEE_CONFERENCE?=$(wildcard ieee-conference/*.cls)
 # Python package PyJool
 PYTS_PYJOOL?=$(wildcard pyjool/*.py)
