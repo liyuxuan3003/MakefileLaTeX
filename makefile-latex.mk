@@ -15,8 +15,10 @@ BUILD_DIR?=build
 # --------------------------------
 # Compiler for LaTeX
 LATEX?=latexmk
-LATEX_COMPILER?=-xelatex
-LATEX_FLAGS?=${LATEX_COMPILER} -synctex=1 -interaction=nonstopmode -file-line-error -output-directory=${BUILD_DIR}
+LATEX_MAIN_COMPILER?=-xelatex
+LATEX_FIGS_COMPILER?=-xelatex
+LATEX_MAIN_FLAGS?=${LATEX_MAIN_COMPILER} -synctex=1 -interaction=nonstopmode -file-line-error -output-directory=${BUILD_DIR}
+LATEX_FIGS_FLAGS?=${LATEX_FIGS_COMPILER} -synctex=1 -interaction=nonstopmode -file-line-error -output-directory=${BUILD_DIR}
 
 # Compiler for Octave
 OCTAVE?=octave-cli
@@ -138,13 +140,13 @@ ${BUILD_DIR}:
 
 # Compile LaTeX main
 ${OUTPUT}: ${TEXS} figs-pdf ${DEPS_MAIN_TEX} 
-	${LATEX} ${LATEX_FLAGS} ${MAIN_TEX}
+	${LATEX} ${LATEX_MAIN_FLAGS} ${MAIN_TEX}
 	touch $@
 	${NOTIFY_DONE}
 
 # Compile LaTeX figure
 ${BUILD_DIR}/%.fig.pdf: %.fig.tex ${DEPS_FIGS_TEX}
-	${LATEX} ${LATEX_FLAGS} $<
+	${LATEX} ${LATEX_FIGS_FLAGS} $<
 	touch $@
 	${NOTIFY_DONE}
 
