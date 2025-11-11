@@ -15,7 +15,8 @@ BUILD_DIR?=build
 # --------------------------------
 # Compiler for LaTeX
 LATEX?=latexmk
-LATEX_FLAGS?=-xelatex -synctex=1 -interaction=nonstopmode -file-line-error -output-directory=${BUILD_DIR}
+LATEX_COMPILER?=-xelatex
+LATEX_FLAGS?=${LATEX_COMPILER} -synctex=1 -interaction=nonstopmode -file-line-error -output-directory=${BUILD_DIR}
 
 # Compiler for Octave
 OCTAVE?=octave-cli
