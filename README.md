@@ -1,26 +1,47 @@
 # MakefileLaTeX
 
-MakefileLaTeX提供了一个适用于LaTeX项目的构建系统，以Git子模块方式引入，基于`latexmk`，支持多种图片生成链（LaTeX/Octave/Mathematica/Python/Inkscape）。
+MakefileLaTeX提供了一个适用于LaTeX项目的构建系统，以Git子模块方式引入。
+
+MakefileLaTeX的编译基于`latexmk`，支持多种类型的图片联合编译（TikZ/Octave/Mathematica/Python/Inkscape）。
+
+MakefileLaTeX是Lumos LaTeX计划的一部分：链接
 
 ## 文件组成
 
 | 文件 | 说明 |
 |------|------|
-| `latex-std-dependence.mk` | 标准依赖变量，声明所有Class和Package的子模块文件路径 |
-| `makefile-latex.mk` | 主构建文件，定义变量、目标和编译规则 |
+| `makefile-latex.mk` | 适用LaTeX的`Makefile` |
+| `latex-std-dependence.mk` | 声明Lumos计划的标准子模块路径 |
 
 ## 引入方式
 
-在项目根目录的`Makefile`中：
+MakefileLaTeX以Git子模块的形式引入项目
+```
+TODO
+```
+
+目录结构假设
+```
+TODO
+```
+
+在项目根目录的主`Makefile`中
 
 ```makefile
 PROJECT:=MyProject
 
-include makefile-latex/latex-std-dependence.mk
-DEPS_MAIN_TEX:=${STYS_MINIMUS} ${CLSS_NOTEBOOK_NEON}
-
 include makefile-latex/makefile-latex.mk
 ```
+
+### 编译器修改
+
+关于指定MAIN为-pdf，指定FIGS为-xelatex
+
+### 依赖项修改
+
+关于怎么添加DEPS，以NotebookNeon和Minimus为例
+
+标准依赖的定义放在这里。
 
 ## 变量
 
