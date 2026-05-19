@@ -140,51 +140,51 @@ DEPS_FIGS_TEX:=${STYS_MINIMUS} ${CLSS_STANDALONE_SILICON}
 |------|--------|------|
 | `LATEX` | `latexmk` | LaTeX编译器 |
 | `LATEX_MAIN_COMPILER` | `-xelatex` | 文档编译器选项 |
-| `LATEX_FIGS_COMPILER` | `-xelatex` | 图件编译器选项 |
+| `LATEX_FIGS_COMPILER` | `-xelatex` | 图片编译器选项 |
 | `LATEX_MAIN_FLAGS` | `${LATEX_MAIN_COMPILER} -synctex=1 -interaction=nonstopmode -file-line-error -output-directory=${BUILD_DIR}` | 主文档编译参数 |
-| `LATEX_FIGS_FLAGS` | `${LATEX_FIGS_COMPILER} -synctex=1 -interaction=nonstopmode -file-line-error -output-directory=${BUILD_DIR}` | 图件编译参数 |
+| `LATEX_FIGS_FLAGS` | `${LATEX_FIGS_COMPILER} -synctex=1 -interaction=nonstopmode -file-line-error -output-directory=${BUILD_DIR}` | 图片编译参数 |
 | `OCTAVE` | `octave-cli` | Octave解释器 |
-| `OCTAVE_FLAGS` | （空） | Octave编译参数 |
+| `OCTAVE_FLAGS` | -- | Octave编译参数 |
 | `WOLFRAM` | `wolframscript` | Mathematica解释器 |
 | `WOLFRAM_FLAGS` | `-script` | Mathematica编译参数 |
 | `PYTHON` | `python` | Python解释器 |
-| `PYTHON_FLAGS` | （空） | Python编译参数 |
+| `PYTHON_FLAGS` | -- | Python编译参数 |
 | `INKSCAPE` | `inkscape` | Inkscape矢量转换器 |
-| `INKSCAPE_FLAGS` | （空） | Inkscape编译参数 |
+| `INKSCAPE_FLAGS` | -- | Inkscape编译参数 |
 
 ### 源文件
 
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
-| `TEXS` | `$(filter-out $(wildcard *.fig.tex),$(wildcard *.tex))` | 全部LaTeX源文件（排除图件） |
+| `TEXS` | `$(filter-out $(wildcard *.fig.tex),$(wildcard *.tex))` | 全部LaTeX源文件（排除图片） |
 | `MAIN_TEX` | `${PROJECT}.tex` | 主LaTeX文件 |
-| `FIGS_TEX` | `$(wildcard *.fig.tex)` | LaTeX图件源文件 |
-| `FIGS_OCT` | `$(wildcard *.fig.m)` | Octave图件源文件 |
-| `FIGS_WLS` | `$(wildcard *.fig.wls)` | Mathematica图件源文件 |
-| `FIGS_PYT` | `$(wildcard *.fig.py)` | Python图件源文件 |
+| `FIGS_TEX` | `$(wildcard *.fig.tex)` | LaTeX图片源文件 |
+| `FIGS_OCT` | `$(wildcard *.fig.m)` | Octave图片源文件 |
+| `FIGS_WLS` | `$(wildcard *.fig.wls)` | Mathematica图片源文件 |
+| `FIGS_PYT` | `$(wildcard *.fig.py)` | Python图片源文件 |
 
 ### 依赖
 
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
-| `DEPS_MAIN_TEX` | （空） | 主文档额外依赖 |
-| `DEPS_FIGS_TEX` | （空） | LaTeX图件额外依赖 |
-| `DEPS_FIGS_OCT` | （空） | Octave图件额外依赖 |
-| `DEPS_FIGS_WLS` | （空） | Mathematica图件额外依赖 |
-| `DEPS_FIGS_PYT` | （空） | Python图件额外依赖 |
+| `DEPS_MAIN_TEX` | -- | 主文档额外依赖 |
+| `DEPS_FIGS_TEX` | -- | LaTeX图片额外依赖 |
+| `DEPS_FIGS_OCT` | -- | Octave图片额外依赖 |
+| `DEPS_FIGS_WLS` | -- | Mathematica图片额外依赖 |
+| `DEPS_FIGS_PYT` | -- | Python图片额外依赖 |
 
 ### 输出
 
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
 | `OUTPUT` | `${BUILD_DIR}/${PROJECT}.pdf` | 主文档输出PDF |
-| `FIGS_TEX_PDF` | `$(addprefix ${BUILD_DIR}/,$(FIGS_TEX:.tex=.pdf))` | LaTeX图件输出 |
-| `FIGS_OCT_PDF` | `$(addprefix ${BUILD_DIR}/,$(FIGS_OCT:.m=.pdf))` | Octave图件输出 |
-| `FIGS_WLS_PDF` | `$(addprefix ${BUILD_DIR}/,$(FIGS_WLS:.wls=.pdf))` | Mathematica图件输出 |
-| `FIGS_PYT_PDF` | `$(addprefix ${BUILD_DIR}/,$(FIGS_PYT:.py=.pdf))` | Python图件输出 |
-| `FIGS_PDF` | `${FIGS_TEX_PDF} ${FIGS_OCT_PDF} ${FIGS_WLS_PDF} ${FIGS_PYT_PDF}` | 全部图件PDF |
-| `FIGS_SVG` | `$(FIGS_PDF:.pdf=.svg)` | 全部图件SVG |
-| `FIGS_EPS` | `$(FIGS_PDF:.pdf=.eps)` | 全部图件EPS |
+| `FIGS_TEX_PDF` | `$(addprefix ${BUILD_DIR}/,$(FIGS_TEX:.tex=.pdf))` | LaTeX图片输出 |
+| `FIGS_OCT_PDF` | `$(addprefix ${BUILD_DIR}/,$(FIGS_OCT:.m=.pdf))` | Octave图片输出 |
+| `FIGS_WLS_PDF` | `$(addprefix ${BUILD_DIR}/,$(FIGS_WLS:.wls=.pdf))` | Mathematica图片输出 |
+| `FIGS_PYT_PDF` | `$(addprefix ${BUILD_DIR}/,$(FIGS_PYT:.py=.pdf))` | Python图片输出 |
+| `FIGS_PDF` | `${FIGS_TEX_PDF} ${FIGS_OCT_PDF} ${FIGS_WLS_PDF} ${FIGS_PYT_PDF}` | 全部图片PDF |
+| `FIGS_SVG` | `$(FIGS_PDF:.pdf=.svg)` | 全部图片SVG |
+| `FIGS_EPS` | `$(FIGS_PDF:.pdf=.eps)` | 全部图片EPS |
 
 ## 目标
 
@@ -192,24 +192,22 @@ DEPS_FIGS_TEX:=${STYS_MINIMUS} ${CLSS_STANDALONE_SILICON}
 
 | 目标 | 说明 |
 |------|------|
-| `default` | 编译主文档及全部图件 |
+| `default` | 编译主文档及全部图片 |
 | `run` | 同`default`，编译后打开PDF |
 | `clean` | 删除`${BUILD_DIR}`目录 |
-| `svg` | 将全部图件PDF转换为SVG |
-| `eps` | 将全部图件PDF转换为EPS |
-| `figs-tex-pdf` | 仅编译LaTeX图件 |
-| `figs-oct-pdf` | 仅编译Octave图件 |
-| `figs-wls-pdf` | 仅编译Mathematica图件 |
-| `figs-pyt-pdf` | 仅编译Python图件 |
-| `figs-pdf` | 编译全部图件 |
-
-### 隐含规则
+| `svg` | 将全部图片PDF转换为SVG |
+| `eps` | 将全部图片PDF转换为EPS |
+| `figs-tex-pdf` | 仅编译LaTeX图片 |
+| `figs-oct-pdf` | 仅编译Octave图片 |
+| `figs-wls-pdf` | 仅编译Mathematica图片 |
+| `figs-pyt-pdf` | 仅编译Python图片 |
+| `figs-pdf` | 编译全部图片 |
 
 | 规则 | 说明 |
 |------|------|
-| `%.fig.pdf` ← `%.fig.tex` | 用`latexmk`编译LaTeX图件 |
-| `%.fig.pdf` ← `%.fig.m` | 用`octave-cli`执行Octave图件 |
-| `%.fig.pdf` ← `%.fig.wls` | 用`wolframscript`执行Mathematica图件 |
-| `%.fig.pdf` ← `%.fig.py` | 用`python`执行Python图件 |
+| `%.fig.pdf` ← `%.fig.tex` | 用`latexmk`编译LaTeX图片 |
+| `%.fig.pdf` ← `%.fig.m` | 用`octave-cli`执行Octave图片 |
+| `%.fig.pdf` ← `%.fig.wls` | 用`wolframscript`执行Mathematica图片 |
+| `%.fig.pdf` ← `%.fig.py` | 用`python`执行Python图片 |
 | `%.fig.svg` ← `%.fig.pdf` | 用`inkscape`转换PDF至SVG |
 | `%.fig.eps` ← `%.fig.pdf` | 用`inkscape`转换PDF至EPS |
