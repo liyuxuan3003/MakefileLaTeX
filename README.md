@@ -22,12 +22,32 @@ git submodule add git@github.com:liyuxuan3003/MakefileLaTeX.git makefile-latex
 ```
 
 目录结构假设
+- 项目的主`Makefile`直接引用`makefile-latex.mk`，复用大部分编译逻辑，仅做简单配置。
+- 扁平化设计，所有`.tex`文件都位于项目根目录，不设`src`目录。
+- 编译输出统一写入`build`目录，避免污染项目结构。
+- 文档可以用`\input`拆分为若干`.tex`，主文件`MyProject`需要写入`PROJECT`变量。
+- 插图可以联合编译，后缀必须是`.fig.tex`、`.fig.m`、`.fig.wls`、`.fig.py`，对应TikZ、Octave、Mathematica、Python。
+- 插图应在`build`目录生成一个同名的`.fig.pdf`（一个脚本对应一张图），否则会破坏编译链。
 
 ```
-./
-├── Makefile
-├── MyProject.tex
-└── makefile-latex/
+MyProject
+|- build/
+    |- MyProject.pdf
+    |- FigTikz.fig.pdf
+    |- FigOctave.fig.pdf
+    |- FigMathematica.fig.pdf
+    |- FigPython.fig.pdf
+|- makefile-latex/
+    |- makefile-latex.mk
+    |- latex-std-depence.mk
+|- Makefile
+|- MyProject.tex
+|- Chapter01.tex
+|- Chapter02.tex
+|- FigTikz.fig.tex
+|- FigOctave.fig.m
+|- FigMathematica.fig.wls
+|- FigPython.fig.py
 ```
 
 在项目根目录的主`Makefile`中
@@ -38,29 +58,61 @@ PROJECT:=MyProject
 include makefile-latex/makefile-latex.mk
 ```
 
+在`makefile-latex.mk`中，变量都是通过`?=`定义的，因此可以在`Makefile`中引用该文件前抢先定义以覆盖默认值，实现配置。
+
+编译文档及其插图
+
+```bash
+make -j
+```
+
+清理文档输出目录
+
+```bash
+make clean
+```
+
+将所有`.fig.pdf`转换为SVG格式
+
+```bash
+make svg
+```
+
+将所有`.fig.pdf`转换为EPS格式
+
+```bash
+make eps
+```
+
+所有的变量理论上都是可配置的，但是有一些组合特别实用，罗列如下。
+
+特别注意，所有`Makefile`中对`makefile-latex.mk`的变量的默认值覆写都必须出现在它被引用前。
+
 ### 编译器修改
 
-根据需求调整编译器设置。例如指定主文档用`pdf`编译器、图件用`xelatex`：
+默认的编译器是`xelatex`，若需要为`.tex`和`.fig.tex`设置不同的编译器（例如IEEETran必须用`pdflatex`）
 
 ```makefile
 LATEX_MAIN_COMPILER:=-pdf
 LATEX_FIGS_COMPILER:=-xelatex
 ```
 
+该变量最终将作为`latexmk`的参数，使用`-xelatex`代表`xelatex`，使用`-pdf`编译器代表`pdflatex`编译器。
+
 ### 依赖项修改
 
-以NotebookNeon和Minimus为例，导入标准依赖文件并添加项目特定的编译依赖：
+默认文档和图片的PDF仅会依赖`.tex`和`.fig.tex`，但可以额外添加一些依赖，当文档使用了某些自定义的`.cls`和`.sty`。
+
+`latex-std-dependence.mk`包含了Lumos LaTeX计划定义的Package和Class的依赖路径，例如
 
 ```makefile
 include makefile-latex/latex-std-dependence.mk
 
 DEPS_MAIN_TEX:=${STYS_MINIMUS} ${CLSS_NOTEBOOK_NEON}
 DEPS_FIGS_TEX:=${STYS_MINIMUS} ${CLSS_STANDALONE_SILICON}
-
-include makefile-latex/makefile-latex.mk
 ```
 
-`latex-std-dependence.mk`中定义了以下标准子模块路径变量：
+`latex-std-dependence.mk`中定义了以下变量（相关子模块必须以正确的路径引入）
 
 | 变量 | 通配路径 |
 |------|----------|
@@ -79,15 +131,15 @@ include makefile-latex/makefile-latex.mk
 
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
-| `PROJECT` | `Notebook` | 项目名，主文件为`${PROJECT}.tex` |
-| `BUILD_DIR` | `build` | 构建输出目录，`make clean`将删除该目录 |
+| `PROJECT` | `Notebook` | 项目名称 |
+| `BUILD_DIR` | `build` | 输出目录 |
 
 ### 编译器
 
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
 | `LATEX` | `latexmk` | LaTeX编译器 |
-| `LATEX_MAIN_COMPILER` | `-xelatex` | 主文档编译器选项 |
+| `LATEX_MAIN_COMPILER` | `-xelatex` | 文档编译器选项 |
 | `LATEX_FIGS_COMPILER` | `-xelatex` | 图件编译器选项 |
 | `LATEX_MAIN_FLAGS` | `${LATEX_MAIN_COMPILER} -synctex=1 -interaction=nonstopmode -file-line-error -output-directory=${BUILD_DIR}` | 主文档编译参数 |
 | `LATEX_FIGS_FLAGS` | `${LATEX_FIGS_COMPILER} -synctex=1 -interaction=nonstopmode -file-line-error -output-directory=${BUILD_DIR}` | 图件编译参数 |
