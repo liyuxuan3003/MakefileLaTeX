@@ -125,6 +125,10 @@ DEPS_FIGS_TEX:=${STYS_MINIMUS} ${CLSS_STANDALONE_SILICON}
 | `CLSS_IEEE_TRAN` | `ieee-tran/*.cls` |
 | `PYTS_PYJOOL` | `pyjool/*.py` |
 
+### 警告
+
+**不要试图通过`BUILD_DIR=.`的方式令输出保持在当且目录，否则使用`make clean`将会删除全部源代码！**
+
 ## 变量
 
 ### 项目配置
@@ -141,7 +145,7 @@ DEPS_FIGS_TEX:=${STYS_MINIMUS} ${CLSS_STANDALONE_SILICON}
 | `LATEX` | `latexmk` | LaTeX编译器 |
 | `LATEX_MAIN_COMPILER` | `-xelatex` | 文档编译器选项 |
 | `LATEX_FIGS_COMPILER` | `-xelatex` | 图片编译器选项 |
-| `LATEX_MAIN_FLAGS` | `${LATEX_MAIN_COMPILER} -synctex=1 -interaction=nonstopmode -file-line-error -output-directory=${BUILD_DIR}` | 主文档编译参数 |
+| `LATEX_MAIN_FLAGS` | `${LATEX_MAIN_COMPILER} -synctex=1 -interaction=nonstopmode -file-line-error -output-directory=${BUILD_DIR}` | 文档编译参数 |
 | `LATEX_FIGS_FLAGS` | `${LATEX_FIGS_COMPILER} -synctex=1 -interaction=nonstopmode -file-line-error -output-directory=${BUILD_DIR}` | 图片编译参数 |
 | `OCTAVE` | `octave-cli` | Octave解释器 |
 | `OCTAVE_FLAGS` | -- | Octave编译参数 |
@@ -156,8 +160,8 @@ DEPS_FIGS_TEX:=${STYS_MINIMUS} ${CLSS_STANDALONE_SILICON}
 
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
-| `TEXS` | `$(filter-out $(wildcard *.fig.tex),$(wildcard *.tex))` | 全部LaTeX源文件（排除图片） |
-| `MAIN_TEX` | `${PROJECT}.tex` | 主LaTeX文件 |
+| `TEXS` | `$(filter-out $(wildcard *.fig.tex),$(wildcard *.tex))` | 文档源文件 |
+| `MAIN_TEX` | `${PROJECT}.tex` | 文档主文件 |
 | `FIGS_TEX` | `$(wildcard *.fig.tex)` | LaTeX图片源文件 |
 | `FIGS_OCT` | `$(wildcard *.fig.m)` | Octave图片源文件 |
 | `FIGS_WLS` | `$(wildcard *.fig.wls)` | Mathematica图片源文件 |
@@ -192,9 +196,9 @@ DEPS_FIGS_TEX:=${STYS_MINIMUS} ${CLSS_STANDALONE_SILICON}
 
 | 目标 | 说明 |
 |------|------|
-| `default` | 编译主文档及全部图片 |
-| `run` | 同`default`，编译后打开PDF |
-| `clean` | 删除`${BUILD_DIR}`目录 |
+| `default` | 指向`run`，作为`make`的默认行为 |
+| `run` | 编译主文档及全部图片 |
+| `clean` | 清空输出目录 |
 | `svg` | 将全部图片PDF转换为SVG |
 | `eps` | 将全部图片PDF转换为EPS |
 | `figs-tex-pdf` | 仅编译LaTeX图片 |
@@ -202,12 +206,3 @@ DEPS_FIGS_TEX:=${STYS_MINIMUS} ${CLSS_STANDALONE_SILICON}
 | `figs-wls-pdf` | 仅编译Mathematica图片 |
 | `figs-pyt-pdf` | 仅编译Python图片 |
 | `figs-pdf` | 编译全部图片 |
-
-| 规则 | 说明 |
-|------|------|
-| `%.fig.pdf` ← `%.fig.tex` | 用`latexmk`编译LaTeX图片 |
-| `%.fig.pdf` ← `%.fig.m` | 用`octave-cli`执行Octave图片 |
-| `%.fig.pdf` ← `%.fig.wls` | 用`wolframscript`执行Mathematica图片 |
-| `%.fig.pdf` ← `%.fig.py` | 用`python`执行Python图片 |
-| `%.fig.svg` ← `%.fig.pdf` | 用`inkscape`转换PDF至SVG |
-| `%.fig.eps` ← `%.fig.pdf` | 用`inkscape`转换PDF至EPS |
