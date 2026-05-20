@@ -135,7 +135,7 @@ DEPS_FIGS_TEX:=${STYS_MINIMUS} ${CLSS_STANDALONE_SILICON}
 
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
-| `PROJECT` | `Notebook` | 项目名称 |
+| `PROJECT` | `Main` | 项目名称 |
 | `BUILD_DIR` | `build` | 输出目录 |
 
 ### 编译器

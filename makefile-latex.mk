@@ -2,7 +2,7 @@
 
 # --------------------------------
 # Project name
-PROJECT?=Notebook
+PROJECT?=Main
 
 # Build directory
 # @@@@ WARNING @@@@ 
