@@ -122,6 +122,7 @@ DEPS_FIGS_TEX:=${STYS_MINIMUS} ${CLSS_STANDALONE_SILICON}
 | `CLSS_BEAMER_BISMUTH` | `beamer-bismuth/*.cls` |
 | `CLSS_STANDALONE_SILICON` | `standalone-silicon/*.cls` |
 | `CLSS_SI200_MINI_REVIEW` | `si200-mini-review/*.cls` |
+| `CLSS_CHEATSHEET_CARBON` | `cheatsheet-carbon/*.cls` |
 | `CLSS_IEEE_TRAN` | `ieee-tran/*.cls` |
 | `PYTS_PYJOOL` | `pyjool/*.py` |
 
