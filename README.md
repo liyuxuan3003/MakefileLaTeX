@@ -124,6 +124,9 @@ DEPS_FIGS_TEX:=${STYS_MINIMUS} ${CLSS_STANDALONE_SILICON}
 | `CLSS_SI200_MINI_REVIEW` | `si200-mini-review/*.cls` |
 | `CLSS_CHEATSHEET_CARBON` | `cheatsheet-carbon/*.cls` |
 | `CLSS_IEEE_TRAN` | `ieee-tran/*.cls` |
+| `CLSS_VSP_BEAMER` | `vsp-beamer/*.cls` |
+| `STYS_VSP_BEAMER` | `vsp-beamer/*.sty` |
+| `ASSETS_VSP_BEAMER` | `vsp-beamer/assets/*.png` |
 | `PYTS_PYJOOL` | `pyjool/*.py` |
 
 ### 警告
